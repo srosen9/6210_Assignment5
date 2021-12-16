@@ -9,22 +9,87 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+# Introduction
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+# Description of Dataset
 
-```{r cars}
-summary(cars)
+
+
+# Data Acquisition, Exploration, Filtering, and Quality Control
+
+The packages we will be using are tidyverse, 
+
+```{r Loading required packages, echo=FALSE}
+
+library(tidyverse)
+
 ```
 
-## Including Plots
 
-You can also embed plots, for example:
+We require two datasets for this project: (1) Community data for the wetlands and (2) Genetic data from NCBI 
+
+```{r community data acquistion, exploration, filtering and quality control}
+
+#import dataset
+df_Odonata <- PEI_NP_Wetlands_Odonata_2010_2018_data
+
+names(df_Odonata)
+dim(df_Odonata)
+
+#total number of unique species?
+#73
+#but lots of errors with species names. We will remove NA values, any species names that do not follow proper scientific naming procedures, and also any where the species level is not indicated. 
+
+
+#remove chunks of text in brackets but still have full species names
+df_Odonata$Scientific.name <- str_remove(string = df_Odonata$Scientific.name, "\\(.+\\)" )
+
+#There are some species that have a third unecessary word in their name. We will remove that too.
+#df_Odonata[str_detect(string = df_Odonata$Scientific.name, "^[A-z]+ [A-z]+ [A-z]+$"),]
+
+df_Odonata$Scientific.name <- str_remove(string = df_Odonata$Scientific.name, "Walker" )
+df_Odonata$Scientific.name <- str_remove(string = df_Odonata$Scientific.name, "Say" )
+
+#remove first row (French header), scientific names with NA values, irrelevant columns, and any names that do not follow. 
+df_Odonata <- df_Odonata[-1,] %>%
+  filter(!is.na(Scientific.name)) %>%
+  select(!exuvia.observer.number & !Observer..order.number & !note) %>%
+  filter(str_detect(Scientific.name, "^[A-z]+ [A-z]+$")) %>%
+  filter(!str_detect(Scientific.name, "NOT ODONATA"))
+
+unique(df_Odonata$Scientific.name)
+unique(PEI_NP_Wetlands_Odonata_2010_2018_data$Scientific.name)
+
+#Now that we have clean scientific names, let's look at the different ponds we have:
+unique(df_Odonata$Survey.site)
+
+```
+
+Now we have clean scientific name data for our different communities. Let's explore the data
+
+```{r data exploration}
+
+
+
+```
+
+
+
+
+# Main Software Tools Description
+
+# Main Analysis
+
 
 ```{r pressure, echo=FALSE}
-plot(pressure)
+
+
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+#Results and Discussion
+
+#Acknowledgements
+
+#References
