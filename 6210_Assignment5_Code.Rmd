@@ -152,13 +152,33 @@ COI_search_ids <- vector() #empty vector for all the search ids
 unique_species <- unique(df_Odonata_common_sites$Scientific.name)
 length(unique_species)
 
-#looping through each species and adding the resulting search ids into the vector COI_search_ids
+#loop through and get the first ID for each species COI sequence
 for (species in unique_species) {
-  COI_search <- entrez_search(db = "nuccore",term = paste(value, "[ORGN] AND COI[GENE] AND SLEN[630:670]", sep = " ",))
-  COI_search_ids <- append(COI_search_ids, COI_search$ids)
+  COI_search <- entrez_search(db = "nuccore", term = paste(species, "[ORGN] AND COI[GENE] AND 650:665[SLEN]", sep = " "))
+  COI_search_ids <- append(COI_search_ids, COI_search$ids[1])
   }
 
-length(COI_search_ids)
+length(COI_search_ids) #perfect! We got an ID for each species
+#but wait, some of the sequence id's are null
+#we will have to remove these sequences from our analysis
+
+COI_search_ids_filtered <- COI_search_ids[-c(15, 20, 26, 29)]
+
+#Now let's download the actual sequences
+COI_fetch <- entrez_fetch(db = "nuccore", id = COI_search_ids_filtered, rettype = "fasta")
+
+head(COI_fetch)
+
+#Writing  FASTA file to working directory
+write(COI_fetch, "COI_fetch.fasta", sep = "\n") 
+
+#Converting the FASTA file to a BioStrings DNAStringSet format
+stringSet <- readDNAStringSet("COI_fetch.fasta")
+class(stringSet)
+head(names(stringSet))
+
+#Put sequences into dataframe format
+df_COI_Odonata <- data.frame(COI_Title = names(stringSet), COI_Sequence = paste(stringSet))
 
 ```
 
