@@ -15,6 +15,9 @@ knitr::opts_chunk$set(echo = TRUE)
 # Description of Dataset
 
 
+#Functions
+
+
 
 # Data Acquisition, Exploration, Filtering, and Quality Control
 
@@ -24,6 +27,8 @@ The packages we will be using are tidyverse,
 
 library(tidyverse)
 library(ggplot2)
+library(Biostrings)
+library(rentrez)
 
 ```
 
@@ -51,13 +56,18 @@ df_Odonata$Scientific.name <- str_remove(string = df_Odonata$Scientific.name, "\
 
 df_Odonata$Scientific.name <- str_remove(string = df_Odonata$Scientific.name, "Walker" )
 df_Odonata$Scientific.name <- str_remove(string = df_Odonata$Scientific.name, "Say" )
+df_Odonata$Scientific.name <- str_replace(string = df_Odonata$Scientific.name, "anax", "Anax")
+df_Odonata$Scientific.name <- str_replace(string = df_Odonata$Scientific.name, "leucorrhinia", "Leucorrhinia")
+df_Odonata$Scientific.name <- str_replace(string = df_Odonata$Scientific.name, "aeshna", "Aeshna")
 
 #remove first row (French header), scientific names with NA values, irrelevant columns, and any names that do not follow. 
 df_Odonata <- df_Odonata[-1,] %>%
   filter(!is.na(Scientific.name)) %>%
   select(!exuvia.observer.number & !Observer..order.number & !note) %>%
   filter(str_detect(Scientific.name, "^[A-z]+ [A-z]+$")) %>%
-  filter(!str_detect(Scientific.name, "NOT ODONATA"))
+  filter(!str_detect(Scientific.name, "NOT ODONATA")) %>%
+  filter(!str_detect(Scientific.name, "unknown Aniaoptera")) %>%
+  filter(!str_detect(Scientific.name, "Enallagma sp"))
 
 unique(df_Odonata$Scientific.name)
 
@@ -86,6 +96,8 @@ df_Odonata_common_sites <-
 
 
 ```
+
+
 
 Now we have clean scientific name data for our different communities. Let's explore the data
 
@@ -122,6 +134,33 @@ ggplot(df_Odonata_unique_by_year_pond,
 -the biodiversity per year seems to vary quite a bit
 -because we are only interested in the biodiversity of the ponds, for this analysis we will ignore the species counts and leave them for a future analysis
 -we will investigate the unique species over the 10 year period, and then potentially for each year (maybe just 2008, 2012, and 2017?)
+
+
+```{r NCBI data}
+
+#Let's get a list of unique species grouped by ponds
+
+df_Odonata_unique_by_pond <- df_Odonata_common_sites %>% 
+  group_by(Survey.site, Scientific.name) %>%
+  summarise()
+  
+
+#now we can get NCBI data
+
+COI_search_ids <- vector() #empty vector for all the search ids
+
+unique_species <- unique(df_Odonata_common_sites$Scientific.name)
+length(unique_species)
+
+#looping through each species and adding the resulting search ids into the vector COI_search_ids
+for (species in unique_species) {
+  COI_search <- entrez_search(db = "nuccore",term = paste(value, "[ORGN] AND COI[GENE] AND SLEN[630:670]", sep = " ",))
+  COI_search_ids <- append(COI_search_ids, COI_search$ids)
+  }
+
+length(COI_search_ids)
+
+```
 
 
 # Main Software Tools Description
