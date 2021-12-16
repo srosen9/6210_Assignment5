@@ -23,6 +23,7 @@ The packages we will be using are tidyverse,
 ```{r Loading required packages, echo=FALSE}
 
 library(tidyverse)
+library(ggplot2)
 
 ```
 
@@ -59,10 +60,30 @@ df_Odonata <- df_Odonata[-1,] %>%
   filter(!str_detect(Scientific.name, "NOT ODONATA"))
 
 unique(df_Odonata$Scientific.name)
-unique(PEI_NP_Wetlands_Odonata_2010_2018_data$Scientific.name)
 
 #Now that we have clean scientific names, let's look at the different ponds we have:
 unique(df_Odonata$Survey.site)
+
+#Ideas for looking into biodiversity
+#pick one year and explore
+
+df_sites <-
+  df_Odonata %>%
+  group_by(Year) %>%
+  count(Survey.site)
+
+df_counts_by_site <- 
+  pivot_wider(df_sites, id_cols = Survey.site, names_from = Year, values_from = Year)
+
+#from this table, we see that there were different sites measured every year. I chose to look at the sites that were measured continuously over the 10 year period. Let's look at the sites in common. That is the sites of Bell's pond, Bog Pond, and Bowley Pond
+
+df_Odonata_common_sites <-
+  df_Odonata %>%
+  filter(Survey.site == "Bells Pond" | Survey.site == "Bog Pond" | Survey.site == "Bowley Pond")
+
+#Now the df_Odonata_common sites data has all the data for the ponds measured every year. We are ready to explore the data.
+
+
 
 ```
 
@@ -70,11 +91,37 @@ Now we have clean scientific name data for our different communities. Let's expl
 
 ```{r data exploration}
 
+#Exploring total number of counts at each pond
+df_Odonata_counts_by_year_plot <- df_Odonata_common_sites %>%
+  group_by(Survey.site) %>%
+  count(Survey.site)
+
+barplot(df_Odonata_counts_by_year_plot$n,
+        names.arg = df_Odonata_counts_by_year_plot$Survey.site)
+
+#Exploring total number of counts at each pond per year
+
+df_Odonata_unique_by_year_pond <- df_Odonata_common_sites %>%
+  group_by(Year, Survey.site) %>%
+  summarise(n = n_distinct(Scientific.name))
+
+ggplot(df_Odonata_unique_by_year_pond, 
+       aes(fill=Survey.site, y=n, x=Year)) + 
+  geom_bar(position="dodge", stat="identity") +
+  labs(y = "Number of Unique Odonata Species", 
+       title = "Number of Unique Odonata Species per Pond by Year") +
+  scale_fill_manual(values = c("#D81B60","#1E88E5","#FFC107"), 
+                    name = "Survey Site") +
+  theme(plot.title = element_text(hjust = 0.5))
+
 
 
 ```
 
-
+-we can see that there were a lot less species collected in 2014
+-the biodiversity per year seems to vary quite a bit
+-because we are only interested in the biodiversity of the ponds, for this analysis we will ignore the species counts and leave them for a future analysis
+-we will investigate the unique species over the 10 year period, and then potentially for each year (maybe just 2008, 2012, and 2017?)
 
 
 # Main Software Tools Description
