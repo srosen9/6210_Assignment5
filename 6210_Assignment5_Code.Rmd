@@ -124,6 +124,33 @@ ggplot(df_Odonata_unique_by_year_pond,
 
 -we can see that there were a lot less species collected in 2014 -the biodiversity per year seems to vary quite a bit -because we are only interested in the biodiversity of the ponds, for this analysis we will ignore the species counts and leave them for a future analysis -we will investigate the unique species over the 10 year period, and then potentially for each year (maybe just 2008, 2012, and 2017?)
 
+
+```{r putting data into community matrix format for future analysis}
+df_Odonata_common_sites$count <- as.numeric(df_Odonata_common_sites$count)
+
+
+test <- df_Odonata_common_sites %>%
+  group_by(Survey.site,Scientific.name) %>%
+  summarize()
+
+#Using aggregate() function. What are we aggregating? latitude data (argument x). What are we grouping by? province_state (we need to make a list for the by argument). What function do we want to apply to the groups? mean, with na.rm set to TRUE. We are creating a new dataframe, dfAvgLat1.
+dfAvgLat1 <- aggregate(x = dfBOLD$lat, by = list(ProvinceState = dfBOLD$province_state), FUN = function(x) mean(x, na.rm = TRUE))
+
+tapply(X = df_Odonata_common_sites$count, 
+       INDEX = list(df_Odonata_common_sites$Scientific.name, df_Odonata_common_sites$Survey.site), FUN = sum, simplify = T)
+
+df_Odonata_spread <- pivot_wider(data = df_Odonata_common_sites,
+                                 id_cols = Scientific.name,
+                                 names_from = Survey.site,
+                                 values_from = Survey.site)
+
+
+
+```
+
+
+Now that our data looks good, let's get those sequences.
+
 ```{r NCBI data}
 
 #Let's get a list of unique species grouped by ponds
