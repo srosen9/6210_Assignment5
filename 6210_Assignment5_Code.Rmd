@@ -9,19 +9,13 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-
 # Introduction
 
 # Description of Dataset
 
-
-#Functions
-
-
+\#Functions
 
 # Data Acquisition, Exploration, Filtering, and Quality Control
-
-The packages we will be using are tidyverse, 
 
 ```{r Loading required packages, echo=FALSE}
 
@@ -29,11 +23,11 @@ library(tidyverse)
 library(ggplot2)
 library(Biostrings)
 library(rentrez)
-
+library(muscle)
+library(DECIPHER)
 ```
 
-
-We require two datasets for this project: (1) Community data for the wetlands and (2) Genetic data from NCBI 
+We require two datasets for this project: (1) Community data for the wetlands and (2) Genetic data from NCBI
 
 ```{r community data acquistion, exploration, filtering and quality control}
 
@@ -97,8 +91,6 @@ df_Odonata_common_sites <-
 
 ```
 
-
-
 Now we have clean scientific name data for our different communities. Let's explore the data
 
 ```{r data exploration}
@@ -130,11 +122,7 @@ ggplot(df_Odonata_unique_by_year_pond,
 
 ```
 
--we can see that there were a lot less species collected in 2014
--the biodiversity per year seems to vary quite a bit
--because we are only interested in the biodiversity of the ponds, for this analysis we will ignore the species counts and leave them for a future analysis
--we will investigate the unique species over the 10 year period, and then potentially for each year (maybe just 2008, 2012, and 2017?)
-
+-we can see that there were a lot less species collected in 2014 -the biodiversity per year seems to vary quite a bit -because we are only interested in the biodiversity of the ponds, for this analysis we will ignore the species counts and leave them for a future analysis -we will investigate the unique species over the 10 year period, and then potentially for each year (maybe just 2008, 2012, and 2017?)
 
 ```{r NCBI data}
 
@@ -182,13 +170,58 @@ df_COI_Odonata <- data.frame(COI_Title = names(stringSet), COI_Sequence = paste(
 
 ```
 
+Now that we have obtained the sequences, we will filter them:
+
+```{r filtering and quality control of sequences}
+
+missing.data <- 0.01
+length.var <- 50
+
+df_COI_Odonata <- df_COI_Odonata %>%
+  mutate(COI_Sequence2 = str_remove_all(COI_Sequence, "^N+|N+$|-")) %>%
+  filter(str_count(COI_Sequence2, "N") <= (missing.data * str_count(COI_Sequence))) %>%
+  filter(str_count(COI_Sequence2) >= median(str_count(COI_Sequence2)) - length.var & str_count(COI_Sequence2) <= median(str_count(COI_Sequence2)) + length.var)
+
+
+#Cleaning up the species names to proper taxonomic names
+df_COI_Odonata$Species_Name <- word(df_COI_Odonata$COI_Title, start = 2L, end = 3L)
+
+remove(missing.data, length.var)
+```
+
+
+
+
 
 # Main Software Tools Description
 
 # Main Analysis
 
 
-```{r pressure, echo=FALSE}
+```{r Sequence Alignment}
+
+df_COI_Odonata$COI_Sequence2 <- DNAStringSet(df_COI_Odonata$COI_Sequence2)
+
+#Naming the sequences before they are aligned
+names(df_COI_Odonata$COI_Sequence2) <- df_COI_Odonata$Species_Name
+
+#aligning sequences using default settings
+dfCOI.alignment <- DNAStringSet(muscle::muscle(df_COI_Odonata$COI_Sequence2))
+
+#writing sequence alignment to file in FASTA format
+writeXStringSet(dfCOI.alignment, file = "Odonata.fas", format = "fasta")
+
+#look at sequences in browser
+BrowseSeqs(dfCOI.alignment)
+
+#looks good!
+
+
+```
+
+
+```{r Phylogenetic Tree}
+
 
 
 ```
