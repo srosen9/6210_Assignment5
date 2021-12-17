@@ -4,7 +4,6 @@ author: "Stephanie Rosen"
 date: "12/12/2021"
 output: pdf_document
 github: https://github.com/srosen9/6210_Assignment5.git
-
 ---
 
 ```{r setup, include=FALSE}
@@ -13,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introduction
 
-Water pollution and climate change are two large ongoing issues that affect the health of many aquatic organisms across Canada. Water pollution due to biological contaminants or other inorganic toxins can pose threats to the health of an ecosystem. This project aims to use biodiversity as a marker of ecosystem health. There are many species that can used as indicator species in water ecosystems, especially macroinvertebrates (Dunbar et al., 2010). More specifically, *Odonata*, an order of dragonflies and damselflies, have been known to be especially useful for ecosystem monitoring (Hart et al., 2014). 
+Water pollution and climate change are two large ongoing issues that affect the health of many aquatic organisms across Canada. Water pollution due to biological contaminants or other inorganic toxins can pose threats to the health of an ecosystem. This project aims to use biodiversity as a marker of ecosystem health. There are many species that can used as indicator species in water ecosystems, especially macroinvertebrates (Dunbar et al., 2010). More specifically, *Odonata*, an order of dragonflies and damselflies, have been known to be especially useful for ecosystem monitoring (Hart et al., 2014).
 
 Prince Edward Island National Park is located in Prince Edward Island and provides a conservation area for many plants and animals (Parks Canada). In order to maintain the health of the ecosystems in the park, it is important to investigate the levels of pollution of ecosystem health, especially in bodies of water. Since 2008, Parks Canada has been monitoring the abundance of *Odonata* of ponds within the National Park (Parks Canada). However, there is no further analysis publicly available about the diversity of the species and how the community structure might inform ecosystem health.
 
@@ -460,7 +459,7 @@ richness_diversity_plot<- plot(Odonata.PD$PD,
 
 **Figure 3: Phylogenetic diversity as a function of species richness for the *Odonata* order in Bog Pond, Bowley Pond, and Bells Pond in PEI National Park.**
 
-#Results and Discussion
+# Results and Discussion
 
 The main objective of the analysis was to investigate biodiversity of the *Odonata* order in three ponds of PEI National Park. This was carried out mainly by constructing a phylogenetic tree. In Figure 4, it can be shown that many of the species were present in each of the three ponds (Bowley, Bog, and Bell). It appears that these communities are overall quite similar with respect to the *Odonata* family. There are, however, four, three, and two species only found in Bells Pond, Bowley Pond, and Bog Pond respectively. This indicates that there are some notable differences in the species diversity. No significant conclusions can be made with regard to specific branches being more present in certain ponds than others.
 
@@ -470,81 +469,40 @@ Though there are meaningful results from this analysis, it is not without its ca
 
 As stated in the introduction, macro-invertebrates are often used at indicator species. Within this analysis, only the order *Odonata* was analyzed. For future analysis, it would be interested to combine the results of this project with phylogenetic community analysis of other orders or families of macro-invertebrates. With regards to the lack of sequence data for 18S rRNA in NCBI, it may be worthwhile to explore alternate databases. Using the 18S sequences for this analysis would also provide an interesting comparison to the COI phylogenetic tree. With this dataset, there were also counts of each species per year per pond. As we were only interested in looking at the overall biodiversity, this data was not included. This set of data represents an opportunity to analyze species abundance in addition to biodiversity. On this note, it would be useful to also look at species abundance and tolerance to certain environmental factors. If a certain member of the *Odonata* order is more abundant than others, this species could very well be more tolerant to pollution than others.
 
-#Reflection
+# Reflection
 
 It's really amazing to see how far I've come! I think the most important thing that I have learned from this semester and this project is that I will never stop learning. There will always be new functions, packages, and applications to investigate and test out. I have also realized how time consuming the data exploration, quality control, and filtering can be. This step of the project took me more time than the main analysis. Going forward, I hope to solidify my data wrangling skills and become much more comfortable with manipulating data frames. I still find myself searching for data manipulation functions which can be quite time-consuming. I have also realized the benefits of project management and reducing large projects into manageable pieces. I will definitely take this forward in coursework and future academic projects.
 
-#Acknowledgements
+# Acknowledgements
 
 Thank you to Jacqueline and Sally for the numerous example scripts and in-class demonstrations that have contributed to this project.
 
-#References
+# References
 
+*Community phylogenetics in R - github pages*. (n.d.). Retrieved December 17, 2021, from <https://pedrohbraga.github.io/CommunityPhylogenetics-Workshop/CommunityPhylogenetics-Workshop.html>
 
-*Community phylogenetics in R
-- github pages*. (n.d.). Retrieved December 17, 2021, from
-<https://pedrohbraga.github.io/CommunityPhylogenetics-Workshop/CommunityPhylogenetics-Workshop.html>
+Dumont, H. J., Vierstraete,, A., & Vanfleteren, J. R. (2010). A molecular phylogeny of the Odonata (Insecta). *Systematic Entomology*, 35(1), 6--18. Retrieved from <https://doi.org/10.1111/j.1365-3113.2009.00489.x>
 
-Dumont, H. J., Vierstraete,, A., & Vanfleteren, J. R. (2010). A molecular phylogeny of the
-Odonata (Insecta). *Systematic Entomology*, 35(1), 6--18. Retrieved from
-<https://doi.org/10.1111/j.1365-3113.2009.00489.x>
+Dunbar, M. J., Warren, M., Extence, C., Baker, L., Cadman, D., Mould, D. J., ... Chadd, R. (2010). Interaction between macroinvertebrates, discharge and physical habitat in upland rivers. *Aquatic Conservation: Marine and Freshwater Ecosystems*, 20(S1), S31--S44. Retrieved from <https://doi.org/10.1002/aqc.1089>
 
-Dunbar, M. J., Warren, M.,
-Extence, C., Baker, L., Cadman, D., Mould, D. J., ... Chadd, R. (2010).
-Interaction between macroinvertebrates, discharge and physical habitat in
-upland rivers. *Aquatic Conservation: Marine and Freshwater Ecosystems*,
-20(S1), S31--S44. Retrieved from <https://doi.org/10.1002/aqc.1089>
+*Explain GGPLOT2 warning: "removed K rows containing missing values"*. Stack Overflow. Retrieved December 17, 2021, from <https://stackoverflow.com/questions/32505298/explain-ggplot2-warning-removed-k-rows-containing-missing-values>
 
-*Explain GGPLOT2 warning:
-"removed K rows containing missing values"*. Stack Overflow.
-Retrieved December 17, 2021, from
-<https://stackoverflow.com/questions/32505298/explain-ggplot2-warning-removed-k-rows-containing-missing-values>
+Faith, D. P., & Baker, A. M. (2006). Phylogenetic Diversity (PD) and Biodiversity Conservation: Some Bioinformatics Challenges. *Evolutionary Bioinformatics*, 2, 117693430600200000. Retrieved from <https://doi.org/10.1177/117693430600200007>
 
-Faith, D. P., & Baker,
-A. M. (2006). Phylogenetic Diversity (PD) and Biodiversity Conservation: Some
-Bioinformatics Challenges. *Evolutionary Bioinformatics*, 2,
-117693430600200000. Retrieved from <https://doi.org/10.1177/117693430600200007>
+Hart, L. A., Bowker, M. B., Tarboton, W., & Downs, C. T. (2014). Species Composition, Distribution and Habitat Types of Odonata in the iSimangaliso Wetland Park, KwaZulu-Natal, South Africa and the Associated Conservation Implications. *PLoS ONE*, 9(3), e92588. Retrieved from <https://doi.org/10.1371/journal.pone.0092588>
 
-Hart, L. A., Bowker, M.
-B., Tarboton, W., & Downs, C. T. (2014). Species Composition, Distribution
-and Habitat Types of Odonata in the iSimangaliso Wetland Park, KwaZulu-Natal,
-South Africa and the Associated Conservation Implications. *PLoS ONE*,
-9(3), e92588. Retrieved from <https://doi.org/10.1371/journal.pone.0092588>
+Kembel, S. W., Cowan, P. D., Helmus, M. R., Cornwell, W. K., Morlon, H., Ackerly, D. D., ... Webb, C. O. (2010). Picante: R tools for integrating phylogenies and ecology. *Bioinformatics (Oxford, England)*, 26(11), 1463--4. Retrieved from <https://doi.org/10.1093/bioinformatics/btq166>
 
-Kembel, S. W., Cowan, P.
-D., Helmus, M. R., Cornwell, W. K., Morlon, H., Ackerly, D. D., ... Webb, C. O.
-(2010). Picante: R tools for integrating phylogenies and ecology. *Bioinformatics
-(Oxford, England)*, 26(11), 1463--4. Retrieved from <https://doi.org/10.1093/bioinformatics/btq166>
+Kim, M. J., Jung, K. S., Park, N. S., Wan, X., Kim, K., Jun, J., ... Kim, I. (2014). Molecular phylogeny of the higher taxa of Odonata (Insecta) inferred from COI, 16S rRNA, 28S rRNA, and EF1-alpha sequences. *Entomological Research*, 44(2), 65--79. Retrieved from <https://doi.org/10.1111/1748-5967.12051>
 
-Kim, M. J., Jung, K. S.,
-Park, N. S., Wan, X., Kim, K., Jun, J., ... Kim, I. (2014). Molecular phylogeny
-of the higher taxa of Odonata (Insecta) inferred from COI, 16S rRNA, 28S rRNA,
-and EF1-alpha sequences. *Entomological Research*, 44(2), 65--79. Retrieved
-from <https://doi.org/10.1111/1748-5967.12051>
+Parks Canada Agency, G. of C. (2021, October 15). *Prince Edward Island national park*. Prince Edward Island National Park. Retrieved December 17, 2021, from <https://www.pc.gc.ca/en/pn-np/pe/pei-ipe>
 
-Parks Canada Agency, G. of C.
-(2021, October 15). *Prince Edward Island national park*. Prince Edward
-Island National Park. Retrieved December 17, 2021, from
-<https://www.pc.gc.ca/en/pn-np/pe/pei-ipe>
+Parks Canada. (n.d.). *Odonata - Prince Edward Island*. Open Data Canada. Retrieved December 17, 2021, from <https://open.canada.ca/data/en/dataset/ce777149-3cb9-4ac2-a133-0924fef16c6e>
 
-Parks Canada. (n.d.). *Odonata
-- Prince Edward Island*. Open Data Canada. Retrieved December 17, 2021, from
-<https://open.canada.ca/data/en/dataset/ce777149-3cb9-4ac2-a133-0924fef16c6e>
+*Picante intro - cran.r-project.org*. (n.d.). Retrieved December 17, 2021, from <https://cran.r-project.org/web/packages/picante/vignettes/picante-intro.pdf>
 
-*Picante intro -
-cran.r-project.org*. (n.d.). Retrieved December 17, 2021, from
-<https://cran.r-project.org/web/packages/picante/vignettes/picante-intro.pdf>
+*"plot.new has not been called yet" error in rmarkdown (Rstudio 1.0.44)*. Stack Overflow. (1965, January 1). Retrieved December 17, 2021, from <https://stackoverflow.com/questions/40938561/plot-new-has-not-been-called-yet-error-in-rmarkdown-rstudio-1-0-44>
 
-*"plot.new has not been
-called yet" error in rmarkdown (Rstudio 1.0.44)*. Stack Overflow.
-(1965, January 1). Retrieved December 17, 2021, from
-<https://stackoverflow.com/questions/40938561/plot-new-has-not-been-called-yet-error-in-rmarkdown-rstudio-1-0-44>
+Yu, G. (n.d.). *Ggtree: Elegant graphics for phylogenetic tree visualization and annotation*. Guangchuang Yu. Retrieved December 17, 2021, from <https://guangchuangyu.github.io/ggtree-book/chapter-ggtree.html>
 
-Yu, G. (n.d.). *Ggtree:
-Elegant graphics for phylogenetic tree visualization and annotation*.
-Guangchuang Yu. Retrieved December 17, 2021, from
-<https://guangchuangyu.github.io/ggtree-book/chapter-ggtree.html>
-
-Yu, G. (2020). Using
-ggtree to Visualize Data on Tree‐Like Structures. *Current Protocols in
-Bioinformatics*, 69(1), e96. Retrieved from <https://doi.org/10.1002/cpbi.96>
+Yu, G. (2020). Using ggtree to Visualize Data on Tree‐Like Structures. *Current Protocols in Bioinformatics*, 69(1), e96. Retrieved from <https://doi.org/10.1002/cpbi.96>
