@@ -1,5 +1,5 @@
 ---
-title: "Assignment5_Code"
+title: "The Phylogenetic Community Analysis of the *Odonata* Order in PEI National Park"
 author: "Stephanie Rosen"
 date: "12/12/2021"
 output: pdf_document
@@ -13,9 +13,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introduction
 
-Water pollution and climate change are two large ongoing issue that affect the health of many aquatic organisms across Canada. Water pollution due to biological contaminants or other toxins can pose threats to the health of an ecosystem. This project aims to use biodiversity as a marker of ecosystem health. There are many species that can used as indicator species in water ecosystems, especially macroinvertebrates (Dunbar et al., 2010). More specifically, *Odonata*, an order of dragonflies and damselflies, have been known to be especially useful for ecosystem monitoring (Hart et al., 2014).
+Water pollution and climate change are two large ongoing issues that affect the health of many aquatic organisms across Canada. Water pollution due to biological contaminants or other inorganic toxins can pose threats to the health of an ecosystem. This project aims to use biodiversity as a marker of ecosystem health. There are many species that can used as indicator species in water ecosystems, especially macroinvertebrates (Dunbar et al., 2010). More specifically, *Odonata*, an order of dragonflies and damselflies, have been known to be especially useful for ecosystem monitoring (Hart et al., 2014). 
 
-Prince Edward Island National Park is located in Prince Edward Island and provides a conservation area for many plants and animals (Parks Canada). In order to maintain the health of the ecosystems in the park, it is important to investigate the levels of pollution of ecosystem health, especially in bodies of water. Since 2008, Parks Canada has been monitoring the abundance of *Odonata* of ponds within the National Park (Parks Canada). However, there is no further analysis [ublicly available about the diversity of the species and how the community structure might inform ecosystem health.
+Prince Edward Island National Park is located in Prince Edward Island and provides a conservation area for many plants and animals (Parks Canada). In order to maintain the health of the ecosystems in the park, it is important to investigate the levels of pollution of ecosystem health, especially in bodies of water. Since 2008, Parks Canada has been monitoring the abundance of *Odonata* of ponds within the National Park (Parks Canada). However, there is no further analysis publicly available about the diversity of the species and how the community structure might inform ecosystem health.
 
 The objective of this study is to investigate the biodiversity of the order *Odonata* as a marker of ecosystem health in ponds of PEI National Park. This will be carried out by investigating phylogenetic community structure among three ponds. Using a phylogenetic tree visualization along with measures of diversity among communities, resulting in an exploration of biodiversity among *Odonata* species. This will assist in providing a better understanding of the health of each pond ecosystem.
 
